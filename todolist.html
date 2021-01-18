@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input v-model="msg" @keyup.enter="add" />
+        <button @click="add">添加</button>
+        {{msg}}
+        <h4>正在进行</h4>
+        <ul>
+            <li style="cursor: pointer;" v-for="(item,index) in todoList" @click="deleteAdd(index)">{{item}}</li>
+        </ul>
+        <h4>已经完成</h4>
+        <ul>
+            <li style="cursor: pointer;" v-for="(item,index) in deleteList" @click="todoAdd(index)">{{item}}</li>
+        </ul>
+
+
+
+    </div>
+
+    <script>
+
+        
+
+        new Vue({
+            el: "#app",
+            data: {
+                msg: "",
+                todoList: [],
+                deleteList: [],
+            },
+            methods: {
+                add() {
+                    this.todoList.push(this.msg);
+                    this.msg = "";
+                },
+                deleteAdd(index) {
+                    this.deleteList.push(this.todoList[index]);
+                    this.todoList.splice(index, 1);
+                },
+                todoAdd(index) {
+                    this.todoList.push(this.deleteList[index]);
+                    this.deleteList.splice(index, 1);
+                },
+                
+            },
+            
+        })
+    </script>
+
+
+</body>
+
+</html>

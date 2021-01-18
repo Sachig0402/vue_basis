@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .className {
+            background-color: aqua;
+            width: 100px;
+            height: 100px;
+        }
+
+        .box1 {
+            width: 100px;
+            height: 100px;
+        }
+
+        .box2 {
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        第一行是msg的数据
+        <h1>{{msg}}</h1>
+        <h2>{{msg2}}</h2>
+        <!-- <h3 v-bind:class="className"></h3> -->
+        <h3 v-bind:class="[obj]" v-bind:style="[obj2,obj3]"></h3>
+        <myhead @par="myfn"></myhead>
+    </div>
+    <script>
+
+        var myhead = {
+            template: `
+            <h1 @click="fn">我是myhead组件，点击触发fn</h1>
+            `,
+            data: function () {
+                return {
+                    msg: "我是myhead组件里的数据"
+                }
+            },
+            methods: {
+                fn() {
+                    this.$emit("par", this.msg);
+                }
+            },
+        }
+
+        
+        new Vue({
+            el: "#app",
+            data: {
+                msg: "111",
+                msg2: "222",
+                className: "className",
+                obj: {
+                    box1: true,
+                    box2: true,
+                },
+                obj2: {
+                    backgroundColor: "red",
+                },
+                obj3: {
+                    marginTop: "20px",
+                }
+            },
+            methods: {
+                myfn(x) {
+                    this.msg = x;
+                }
+            },
+            components: {
+                myhead
+            }
+        })
+    </script>
+</body>
+
+</html>
